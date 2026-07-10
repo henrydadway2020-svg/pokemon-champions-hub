@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TournamentCard from '../../components/TournamentCard.astro';
+import { sampleTournaments } from '../../data/sampleData';
+import { STATUS_LABEL, type TournamentStatus } from '../../data/types';
+
+// TODO: reemplazar por consulta real a D1.
+const estadoFiltro = Astro.url.searchParams.get('estado') as TournamentStatus | null;
+
+const torneos = estadoFiltro
+  ? sampleTournaments.filter((t) => t.estado === estadoFiltro)
+  : sampleTournaments;
+
+const estados: TournamentStatus[] = ['abierto', 'en_curso', 'cerrado', 'finalizado'];
+---
+
+<BaseLayout title="Torneos">
+  <section class="container" style="margin-top: 32px;">
+    <h1>Torneos</h1>
+
+    <div class="filters">
+      <a href="/torneos" class={!estadoFiltro ? 'active' : ''}>Todos</a>
+      {estados.map((e) => (
+        <a href={`/torneos?estado=${e}`} class={estadoFiltro === e ? 'active' : ''}>
+          {STATUS_LABEL[e]}
+        </a>
+      ))}
+    </div>
+
+    <div class="grid grid-3" style="margin-top: 24px;">
+      {torneos.map((t) => <TournamentCard tournament={t} />)}
+    </div>
+
+    {torneos.length === 0 && <p>No hay torneos con este estado por ahora.</p>}
+  </section>
+</BaseLayout>
+
+<style>
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .filters a {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+  }
+  .filters a:hover {
+    text-decoration: none;
+    border-color: var(--color-primary);
+  }
+  .filters a.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
+  }
+</style>

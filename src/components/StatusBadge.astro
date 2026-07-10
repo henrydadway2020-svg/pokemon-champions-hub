@@ -1,0 +1,11 @@
+---
+import { STATUS_LABEL, type TournamentStatus } from '../data/types';
+
+interface Props {
+  estado: TournamentStatus;
+}
+
+const { estado } = Astro.props;
+---
+
+<span class={`badge badge-${estado}`}>{STATUS_LABEL[estado]}</span>

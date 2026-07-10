@@ -1,0 +1,60 @@
+---
+import StatusBadge from './StatusBadge.astro';
+import type { Tournament } from '../data/types';
+
+interface Props {
+  tournament: Tournament;
+}
+
+const { tournament } = Astro.props;
+
+const fecha = new Date(tournament.fechaInicio).toLocaleDateString('es-MX', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<a href={`/torneos/${tournament.slug}`} class="card tournament-card">
+  <div class="tournament-banner">
+    <StatusBadge estado={tournament.estado} />
+  </div>
+  <div class="tournament-body">
+    <h3>{tournament.nombre}</h3>
+    <p class="tournament-meta">{fecha} · {tournament.formato}</p>
+    <p class="tournament-org">Organiza: {tournament.organizador}</p>
+  </div>
+</a>
+
+<style>
+  .tournament-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+  .tournament-card:hover {
+    border-color: var(--color-primary);
+    text-decoration: none;
+  }
+  .tournament-banner {
+    background: var(--color-primary);
+    height: 90px;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px 16px;
+  }
+  .tournament-body {
+    padding: 16px;
+  }
+  .tournament-body h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .tournament-meta,
+  .tournament-org {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 2px 0;
+  }
+</style>

@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  /* Colores principales */
+  --color-primary: #1B4B91;
+  --color-primary-dark: #123566;
+  --color-accent: #FFC107;
+  --color-champion-red: #E53935;
+  --color-navy: #0D1B2A;
+
+  /* Estados de torneo */
+  --color-abierto: #2E7D32;
+  --color-cerrado: #F57C00;
+  --color-en-curso: #1976D2;
+  --color-finalizado: #757575;
+
+  /* Neutros */
+  --bg-light: #F7F8FA;
+  --bg-dark: #12192B;
+  --text-primary: #1A1F2B;
+  --text-secondary: #6B7280;
+  --border-color: #E5E7EB;
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-card: 14px;
+  --radius-control: 8px;
+  --radius-pill: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg-light);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  margin: 0 0 0.5em;
+  color: var(--color-navy);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: var(--radius-control);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--text-primary);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.btn:disabled,
+.btn.disabled {
+  background: var(--border-color);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.badge-abierto { background: var(--color-abierto); }
+.badge-cerrado { background: var(--color-cerrado); }
+.badge-en_curso { background: var(--color-en-curso); }
+.badge-finalizado { background: var(--color-finalizado); }
+
+.card {
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  border: 0.5px solid var(--border-color);
+  overflow: hidden;
+}
+
+.section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-title h2 {
+  margin: 0;
+}
+
+.section-title a {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}

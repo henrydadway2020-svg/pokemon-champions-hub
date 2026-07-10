@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sampleNews } from '../../data/sampleData';
+---
+
+<BaseLayout title="Noticias">
+  <section class="container" style="margin-top: 32px;">
+    <h1>Noticias</h1>
+    <div class="grid grid-3" style="margin-top: 20px;">
+      {sampleNews.map((n) => (
+        <a href={`/noticias/${n.slug}`} class="card">
+          <div style="padding: 16px;">
+            <span style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--color-primary);">{n.categoria}</span>
+            <h3 style="font-size:15px; margin:6px 0;">{n.titulo}</h3>
+            <p style="font-size:13px; color:var(--text-secondary); margin:0;">{n.resumen}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

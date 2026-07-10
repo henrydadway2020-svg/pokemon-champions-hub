@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import { sampleTournaments } from '../../data/sampleData';
+
+// TODO: reemplazar por consulta real a D1: SELECT * FROM tournaments WHERE slug = ?
+const { slug } = Astro.params;
+const torneo = sampleTournaments.find((t) => t.slug === slug);
+
+if (!torneo) {
+  return Astro.redirect('/torneos');
+}
+
+const fecha = new Date(torneo.fechaInicio).toLocaleDateString('es-MX', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+const inscripcionAbierta = torneo.estado === 'abierto';
+---
+
+<BaseLayout title={torneo.nombre}>
+  <div class="banner">
+    <div class="container">
+      <StatusBadge estado={torneo.estado} />
+      <h1>{torneo.nombre}</h1>
+    </div>
+  </div>
+
+  <section class="container tournament-detail">
+    <div class="main-col">
+      <div class="card info-block">
+        <h2>Información general</h2>
+        <ul>
+          <li><strong>Fecha:</strong> {fecha}</li>
+          <li><strong>Formato:</strong> {torneo.formato}</li>
+          <li><strong>Modalidad:</strong> {torneo.modalidad === 'online' ? 'Online' : 'Presencial'}</li>
+          {torneo.ubicacion && <li><strong>Ubicación:</strong> {torneo.ubicacion}</li>}
+          <li><strong>Organizador:</strong> {torneo.organizador}</li>
+        </ul>
+      </div>
+
+      <div class="card info-block">
+        <h2>Reglas</h2>
+        <p>{torneo.reglas}</p>
+      </div>
+
+      <div class="card info-block">
+        <h2>Premios</h2>
+        <ul>
+          {torneo.premios.map((p) => (
+            <li><strong>{p.puesto}:</strong> {p.premio}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <aside class="side-col">
+      <div class="card cta-card">
+        <p class="cta-label">Estado del torneo</p>
+        <StatusBadge estado={torneo.estado} />
+        <a
+          href={inscripcionAbierta ? torneo.enlaceInscripcion : '#'}
+          class={`btn btn-primary cta-button ${inscripcionAbierta ? '' : 'disabled'}`}
+          target={inscripcionAbierta ? '_blank' : undefined}
+          rel={inscripcionAbierta ? 'noopener noreferrer' : undefined}
+          aria-disabled={!inscripcionAbierta}
+        >
+          {inscripcionAbierta ? 'Inscribirme' : 'Inscripciones cerradas'}
+        </a>
+      </div>
+    </aside>
+  </section>
+</BaseLayout>
+
+<style>
+  .banner {
+    background: var(--color-primary);
+    padding: 32px 0;
+    color: #ffffff;
+  }
+  .banner h1 {
+    color: #ffffff;
+    margin-top: 12px;
+  }
+  .tournament-detail {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+    align-items: start;
+  }
+  .main-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .info-block {
+    padding: 20px;
+  }
+  .info-block h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .info-block ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+  }
+  .info-block li {
+    margin-bottom: 6px;
+  }
+  .cta-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 20px;
+  }
+  .cta-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .cta-button {
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 720px) {
+    .tournament-detail {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

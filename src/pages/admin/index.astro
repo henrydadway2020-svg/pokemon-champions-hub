@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sampleTournaments } from '../../data/sampleData';
+
+// Esta ruta (/admin/*) debe protegerse con Cloudflare Access (Zero Trust),
+// configurado en el dashboard de Cloudflare — no requiere código adicional.
+// Ver README.md para los pasos de configuración.
+
+const total = sampleTournaments.length;
+const abiertos = sampleTournaments.filter((t) => t.estado === 'abierto').length;
+---
+
+<BaseLayout title="Panel de administración">
+  <section class="container" style="margin-top: 32px;">
+    <h1>Panel de administración</h1>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: 20px;">
+      <div class="card" style="padding: 16px;">
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Torneos totales</p>
+        <p style="font-size:24px; font-weight:600; margin:4px 0 0;">{total}</p>
+      </div>
+      <div class="card" style="padding: 16px;">
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Inscripciones abiertas</p>
+        <p style="font-size:24px; font-weight:600; margin:4px 0 0;">{abiertos}</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+      <a href="/admin/torneos" class="btn btn-primary">Gestionar torneos</a>
+      <a href="/admin/torneos/nuevo" class="btn btn-secondary">+ Crear torneo</a>
+      <a href="/admin/noticias" class="btn btn-secondary">Gestionar noticias</a>
+    </div>
+
+    <p style="margin-top: 32px; font-size: 13px; color: var(--text-secondary);">
+      Nota: este panel aún usa datos de ejemplo. Los formularios de creación/edición
+      y la conexión a D1 se implementan en el siguiente paso.
+    </p>
+  </section>
+</BaseLayout>

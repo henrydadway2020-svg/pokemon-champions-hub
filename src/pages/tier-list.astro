@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// TODO: reemplazar por consulta real a D1 (tabla tier_list_entries),
+// agrupada por tier y filtrable por formato.
+const tiers = ['S', 'A', 'B', 'C'];
+---
+
+<BaseLayout title="Tier List">
+  <section class="container" style="margin-top: 32px;">
+    <h1>Tier List</h1>
+    <p style="color: var(--text-secondary);">Última actualización: pendiente de cargar desde el panel admin.</p>
+
+    {tiers.map((tier) => (
+      <div class="card" style="margin-top: 16px; padding: 16px;">
+        <h2 style="font-size: 16px;">Tier {tier}</h2>
+        <p style="font-size: 13px; color: var(--text-secondary);">
+          Aquí se listarán los Pokémon del tier {tier} una vez conectada la base de datos.
+        </p>
+      </div>
+    ))}
+  </section>
+</BaseLayout>
