@@ -2,10 +2,3 @@ name = "pokemon-champions-hub"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
-
-
-# Bucket R2 para banners de torneos, sprites, thumbnails.
-# Crea el bucket con: wrangler r2 bucket create pokemon-champions-hub-media
-[[r2_buckets]]
-binding = "MEDIA"
-bucket_name = "pokemon-champions-hub-media"
