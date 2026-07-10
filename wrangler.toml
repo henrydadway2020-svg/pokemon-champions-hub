@@ -3,13 +3,6 @@ compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
 
-# Base de datos D1 — crea la tuya con:
-#   wrangler d1 create pokemon_champions_hub
-# y reemplaza database_id con el id que te devuelva ese comando.
-[[d1_databases]]
-binding = "DB"
-database_name = "pokemon_champions_hub"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
 
 # Bucket R2 para banners de torneos, sprites, thumbnails.
 # Crea el bucket con: wrangler r2 bucket create pokemon-champions-hub-media
